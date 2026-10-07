@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wait, I'm in my 10 Minutes Break</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Ambient background lighting -->
+  <div class="ambient-glow orb-1"></div>
+  <div class="ambient-glow orb-2"></div>
+
+  <main class="app-container">
+    <div class="card">
+      
+      <!-- Top Utility Bar -->
+      <header class="card-header">
+        <div class="badge">
+          <span class="status-dot" id="statusDot"></span>
+          <span id="statusText">READY FOR BREAK</span>
+        </div>
+        <div class="utility-actions">
+          <button id="soundToggleBtn" class="icon-btn" title="Toggle Sound (M)">
+            <svg id="soundOnIcon" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+            <svg id="soundOffIcon" class="icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="1" y1="1" x2="23" y2="23"></line>
+              <path d="M9 9l3 3v7l-5-4H2V9h5l1.5-1.2"></path>
+              <path d="M15.54 8.46a5 5 0 0 1 1.07 5.8"></path>
+            </svg>
+          </button>
+
+          <button id="fullscreenToggleBtn" class="icon-btn" title="Toggle Fullscreen (F)">
+            <svg id="enterFullscreenIcon" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+            </svg>
+            <svg id="exitFullscreenIcon" class="icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Prominent Heading -->
+      <h1 class="main-title">Wait, I'm in my 10 Minutes Break</h1>
+      <p class="subtitle">Relax, I'm not lazing around.</p>
+
+      <!-- Circular Timer Display -->
+      <div class="timer-display-wrapper">
+        <svg class="progress-ring" viewBox="0 0 380 380">
+          <circle class="ring-bg" cx="190" cy="190" r="170"></circle>
+          <circle class="ring-progress" id="progressRing" cx="190" cy="190" r="170"></circle>
+        </svg>
+
+        <div class="timer-center-content">
+          <div class="time-readout" id="timeDisplay">10:00</div>
+          <div class="timer-controls-overlay">
+            <button class="adjust-btn" id="decreaseTimeBtn" title="Subtract 1 minute">-1m</button>
+            <button class="adjust-btn" id="increaseTimeBtn" title="Add 1 minute">+1m</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Preset Selector -->
+      <div class="preset-group">
+        <button class="preset-chip" data-time="300">5 Min</button>
+        <button class="preset-chip active" data-time="600">10 Min</button>
+        <button class="preset-chip" data-time="900">15 Min</button>
+        <button class="preset-chip" data-time="1200">20 Min</button>
+      </div>
+
+      <!-- Main Action Buttons -->
+      <div class="action-buttons">
+        <button id="startStopBtn" class="btn btn-primary">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polygon id="playIcon" points="5 3 19 12 5 21 5 3" fill="currentColor"></polygon>
+            <path id="pauseIcon" class="hidden" d="M6 4h4v16H6zm8 0h4v16h-4z" fill="currentColor"></path>
+          </svg>
+          <span id="startStopText">Start Break</span>
+        </button>
+
+        <button id="resetBtn" class="btn btn-secondary" title="Reset Timer (R)">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+            <path d="M3 3v5h5"></path>
+          </svg>
+          Reset
+        </button>
+      </div>
+
+      <!-- Footer Shortcuts -->
+      <footer class="shortcuts-footer">
+        <span><kbd>Space</kbd> Start / Pause</span>
+        <span><kbd>R</kbd> Reset</span>
+        <span><kbd>M</kbd> Mute</span>
+        <span><kbd>F</kbd> Fullscreen</span>
+      </footer>
+
+    </div>
+  </main>
+
+  <!-- Completion Modal Overlay -->
+  <div id="completionModal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-icon">🎉</div>
+      <h2>Break Finished!</h2>
+      <p>Your break is complete. Hope you feel recharged and focused.</p>
+      <button id="dismissModalBtn" class="btn btn-primary modal-btn">Back to Work</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
